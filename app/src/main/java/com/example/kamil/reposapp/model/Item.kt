@@ -8,6 +8,5 @@ class Item {
     var ownerName : String? = null
     var avatarUrl : String? = null
     var desc : String? = null
-
-    var isGitHubRepo : Boolean = false
+    var isGH: Boolean? = false
 }

@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/llContainer"
   android:layout_width="match_parent"
-  android:layout_height="100dp">
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="5dp"
+  android:padding="10dp"
+  android:orientation="vertical">
 
   <TextView
     android:id="@+id/tvRepoName"
@@ -12,7 +15,8 @@
   <TextView
     android:id="@+id/tvOwnerName"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    />
 
   <ImageView
     android:id="@+id/ivAvatar"

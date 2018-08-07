@@ -1,5 +1,7 @@
 package com.example.kamil.reposapp.adapter
 
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.example.kamil.reposapp.R
 import com.example.kamil.reposapp.model.Item
 
@@ -18,8 +19,8 @@ import com.example.kamil.reposapp.model.Item
  class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.CustomViewHolder>() {
 
     var items: MutableList<Item?> = mutableListOf()
-    val GITHUB_REPO = 1
-    val TYPE_REPO = 2
+    val TYPE_GH = 1
+    val TYPE_BB = 2
 
     override fun getItemCount(): Int {
         return items.size;
@@ -27,8 +28,9 @@ import com.example.kamil.reposapp.model.Item
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CustomViewHolder {
         when (viewType) {
-            GITHUB_REPO -> {
+            TYPE_GH -> {
                 val holder = CustomViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_repo, parent, false))
+                holder.llContainer.setBackgroundColor(ContextCompat.getColor(parent?.context, R.color.yellow ))
                 holder.llContainer.setOnClickListener { v ->
 //                    run {
 //                        Toast.makeText(baseContext, "User clicked!", Toast.LENGTH_LONG).show()
@@ -45,15 +47,16 @@ import com.example.kamil.reposapp.model.Item
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.tvRepoName?.setText(items[position]?.repoName)
-        holder.tvOwnerName?.setText(items[position]?.ownerName)
+        val item: Item? = items[position]
+        holder.tvRepoName?.setText(item?.repoName)
+        holder.tvOwnerName?.setText(item?.ownerName)
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position]?.isGitHubRepo ?: true) {
-            return GITHUB_REPO
+        if (items[position]?.isGH ?: true) {
+            return TYPE_GH
         } else
-            return TYPE_REPO
+            return TYPE_BB
     }
 
     inner class CustomViewHolder(v: View) : RecyclerView.ViewHolder(v) {

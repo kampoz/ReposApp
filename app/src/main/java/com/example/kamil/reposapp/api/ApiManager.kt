@@ -107,16 +107,18 @@ class ApiManager {
         item.repoName = value?.name
         item.desc = value?.description
         //todo uzupełnic avatar BB
+        item.isGH = false
 
         return Observable.just(item)
     }
 
     fun getItemObservableFromGH(ghResponse: GHResponse?): Observable<Item> {
         val item = Item()
-        item.ownerName = ghResponse?.owner.toString()
+        item.ownerName = ghResponse?.owner?.login
         item.repoName = ghResponse?.name
         item.avatarUrl = ghResponse?.owner?.avatar_url
         item.desc = ghResponse?.description
+        item.isGH = true
         return Observable.just(item)
     }
 
