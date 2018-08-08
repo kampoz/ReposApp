@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.kamil.reposapp.R
+import com.example.kamil.reposapp.RepoFragment
 import com.example.kamil.reposapp.model.Item
 
 /**
@@ -42,7 +43,7 @@ import com.example.kamil.reposapp.model.Item
 //                        addFragmentToContainer(UserFragment().newInstance(holder.tvName.text.toString()))
 //                    }
                     //todo add UserFragment
-//                    listener.addFragmentToContainer()
+                    listener?.addFragmentToContainer(RepoFragment())
                 }
 
                 return holder
