@@ -37,14 +37,7 @@ import com.example.kamil.reposapp.model.Item
             TYPE_GH -> {
                 val holder = CustomViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_repo, parent, false))
                 holder.llContainer.setBackgroundColor(ContextCompat.getColor(parent?.context, R.color.yellow ))
-                holder.llContainer.setOnClickListener { v ->
-//                    run {
-//                        Toast.makeText(baseContext, "User clicked!", Toast.LENGTH_LONG).show()
-//                        addFragmentToContainer(UserFragment().newInstance(holder.tvName.text.toString()))
-//                    }
-                    //todo add UserFragment
-                    listener?.addFragmentToContainer(RepoFragment())
-                }
+
 
                 return holder
             }
@@ -58,6 +51,10 @@ import com.example.kamil.reposapp.model.Item
         val item: Item? = items[position]
         holder.tvRepoName?.setText(item?.repoName)
         holder.tvOwnerName?.setText(item?.ownerName)
+        holder.llContainer.setOnClickListener {
+            v -> listener?.addFragmentToContainer(RepoFragment().newInstance(reponame = item?.repoName, userLogin = item?.ownerName,
+                    description = item?.desc, avatarUrl = item?.avatarUrl))
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
