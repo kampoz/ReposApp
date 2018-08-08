@@ -1,7 +1,5 @@
 package com.example.kamil.reposapp.adapter
 
-import android.content.Context
-import android.net.sip.SipSession
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -14,18 +12,18 @@ import android.widget.TextView
 import com.example.kamil.reposapp.R
 import com.example.kamil.reposapp.RepoFragment
 import com.example.kamil.reposapp.model.Item
+import com.squareup.picasso.Picasso
 
 /**
  * Created by Kamil on 06.08.2018.
  */
 
- class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.CustomViewHolder>() {
+class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.CustomViewHolder>() {
 
     var items: MutableList<Item?> = mutableListOf()
     val TYPE_GH = 1
     val TYPE_BB = 2
     var listener: AdapterListener? = null
-
 
 
     override fun getItemCount(): Int {
@@ -36,7 +34,7 @@ import com.example.kamil.reposapp.model.Item
         when (viewType) {
             TYPE_GH -> {
                 val holder = CustomViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_repo, parent, false))
-                holder.llContainer.setBackgroundColor(ContextCompat.getColor(parent?.context, R.color.yellow ))
+                holder.llContainer.setBackgroundColor(ContextCompat.getColor(parent?.context, R.color.yellow))
 
 
                 return holder
@@ -51,8 +49,15 @@ import com.example.kamil.reposapp.model.Item
         val item: Item? = items[position]
         holder.tvRepoName?.setText(item?.repoName)
         holder.tvOwnerName?.setText(item?.ownerName)
-        holder.llContainer.setOnClickListener {
-            v -> listener?.addFragmentToContainer(RepoFragment().newInstance(reponame = item?.repoName, userLogin = item?.ownerName,
+
+        Picasso.get()
+                .load(item?.avatarUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(holder.ivAvatar);
+
+        holder.llContainer.setOnClickListener { v ->
+            listener?.addFragmentToContainer(RepoFragment().newInstance(reponame = item?.repoName, userLogin = item?.ownerName,
                     description = item?.desc, avatarUrl = item?.avatarUrl))
         }
     }

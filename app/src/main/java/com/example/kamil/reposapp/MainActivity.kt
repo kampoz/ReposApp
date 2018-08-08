@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity(), AdapterListener {
         rv.adapter = adapter
 
 //        searchBBRepos()
-//        searchGHRepos(rv)
-        loadAllRepos()
+        searchGHRepos(rv)
+//        loadAllRepos()
 
         Log.d("tag", "cos tam")
 
