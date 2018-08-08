@@ -1,6 +1,8 @@
 package com.example.kamil.reposapp.adapter
 
 import android.content.Context
+import android.net.sip.SipSession
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -21,6 +23,9 @@ import com.example.kamil.reposapp.model.Item
     var items: MutableList<Item?> = mutableListOf()
     val TYPE_GH = 1
     val TYPE_BB = 2
+    var listener: AdapterListener? = null
+
+
 
     override fun getItemCount(): Int {
         return items.size;
@@ -36,6 +41,8 @@ import com.example.kamil.reposapp.model.Item
 //                        Toast.makeText(baseContext, "User clicked!", Toast.LENGTH_LONG).show()
 //                        addFragmentToContainer(UserFragment().newInstance(holder.tvName.text.toString()))
 //                    }
+                    //todo add UserFragment
+//                    listener.addFragmentToContainer()
                 }
 
                 return holder
@@ -66,4 +73,8 @@ import com.example.kamil.reposapp.model.Item
         val ivAvatar = v.findViewById<ImageView>(R.id.ivAvatar)
 
     }
+}
+
+interface AdapterListener {
+    fun addFragmentToContainer(fragment: Fragment)
 }

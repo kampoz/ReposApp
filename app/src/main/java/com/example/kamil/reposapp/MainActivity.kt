@@ -1,6 +1,7 @@
 package com.example.kamil.reposapp
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -8,12 +9,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import com.example.kamil.reposapp.adapter.AdapterListener
 import com.example.kamil.reposapp.adapter.ResultsAdapter
 import com.example.kamil.reposapp.api.ApiManager
 import com.example.kamil.reposapp.model.Item
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterListener {
 
     var adapter = ResultsAdapter();
     var allItems = mutableSetOf<Item?>()
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val rv = findViewById<RecyclerView>(R.id.rv_results)
         rv.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        adapter.listener = this
         rv.adapter = adapter
 
 //        searchBBRepos()
@@ -87,5 +90,12 @@ class MainActivity : AppCompatActivity() {
         adapter.items.clear()
         adapter.items.addAll( list2)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun addFragmentToContainer(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .add(R.id.fl_container, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 }
